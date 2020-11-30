@@ -1,0 +1,69 @@
+.layout {
+  background: linear-gradient(rgba(0, 0, 0, 0.3),
+  rgba(0, 0, 0, 0.3)),url('../../images/background.jpg');
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+
+.title {
+    margin-left:20px;
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+.titleText {
+    font-family: Dancing Script;
+    font-size: 50px;
+    color: white
+}
+
+.form {
+    width: 30%;
+    /* padding-top: 20px; */
+}
+
+@media (max-width: 630px){
+    .form {
+        width: 80%;
+        margin: auto
+    }
+}
+
+.content {
+    margin-left: 40px;
+    padding-top: 50px;
+}
+
+.registerButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+.login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+    padding-top: 20px;
+}
+
+.errorMessageBox {
+    background-color: rgb(119, 32, 46);
+    color: white;
+    font-size : 12px;
+    padding:10px 20px;
+}
+
+.success {
+    background-color: rgb(30, 109, 66);
+    color: white;
+    font-size : 12px;
+    padding:10px 20px;
+}

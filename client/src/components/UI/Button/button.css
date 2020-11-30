@@ -1,0 +1,14 @@
+.normal {
+    background-color: transparent;
+    border-color: white;
+    padding: 10px 40px;
+    color: white;
+}
+
+.normal:hover,
+.normal:active,
+.normal:focus{
+    background-color: rgba(0,0,0,0.3);
+    border-color: white;
+    color: white;
+}
