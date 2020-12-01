@@ -20,3 +20,9 @@ export const GET_PETS_FAIL = 'GET_PETS_FAIL';
 
 export const GET_PET_BY_ID = 'GET_PET_BY_ID';
 export const GET_PET_BY_ID_FAIL = 'GET_PET_BY_ID_FAIL';
+
+export const EDIT_A_PET = 'EDIT_A_PET';
+export const EDIT_A_PET_FAIL = 'EDIT_A_PET_FAIL';
+
+export const DELETE_A_PET = 'DELETE_A_PET';
+export const DELETE_A_PET_FAIL = 'DELETE_A_PET_FAIL';

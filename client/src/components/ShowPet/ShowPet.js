@@ -11,29 +11,41 @@ export const ShowPet = (props) => {
         props.getPet(props.match.params.id);
     }, []);
 
+    console.log(props.error);
+
     const pet = props.pet || {};
 
-    return (
-        <div style={{backgroundColor: "#f0f0f0", height:"100%", minHeight:"100vh"}}>
-        <div className="container">
-            <div className="details">
-                <Row>
-                    <Col style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}} sm={12} md={12} xl={6} lg={6} >
-                        <img width="100%" src={pet.image} alt="pet" />
-                    </Col>
-                    <Col sm={12} md={12} xl={6} lg={6} style={{paddingTop:"50px", backgroundColor:"#E8E8E8", boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
-                        <p><strong>Name: </strong>{pet.name}</p>
-                        <p><strong>Type: </strong>{pet.type}</p>
-                        <p><strong>Breed: </strong>{pet.breed}</p>
-                        <p><strong>Age: </strong>{pet.age}</p>
-                        <p><strong>Location: </strong>{pet.location}</p>
-                        <div style={{padding: "20px"}}>
-                        <Button className="mr-2" variant="success" size="md">Add to wishlist</Button>
-                        </div>
-                    </Col>
-                </Row>
+    if (props.error === 'Pet not found') {
+        return (
+            <div>
+                <div key={props.error} className="errorMessageBox">
+                    <div>{props.error}</div>
+                </div>
             </div>
-        </div>
+        )
+    }
+
+    return (
+        <div style={{ backgroundColor: "#f0f0f0", height: "100%", minHeight: "100vh" }}>
+            <div className="container">
+                <div className="details">
+                    <Row>
+                        <Col style={{ boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" }} sm={12} md={12} xl={6} lg={6} >
+                            <img width="100%" src={pet.image} alt="pet" />
+                        </Col>
+                        <Col sm={12} md={12} xl={6} lg={6} style={{ paddingTop: "50px", backgroundColor: "#E8E8E8", boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" }}>
+                            <p><strong>Name: </strong>{pet.name}</p>
+                            <p><strong>Type: </strong>{pet.type}</p>
+                            <p><strong>Breed: </strong>{pet.breed}</p>
+                            <p><strong>Age: </strong>{pet.age}</p>
+                            <p><strong>Location: </strong>{pet.location}</p>
+                            <div style={{ padding: "20px" }}>
+                                <Button className="mr-2" variant="success" size="md">Add to wishlist</Button>
+                            </div>
+                        </Col>
+                    </Row>
+                </div>
+            </div>
         </div>
     )
 }
@@ -41,7 +53,8 @@ export const ShowPet = (props) => {
 const mapStateToProps = state => {
     return {
         user: state.auth.user,
-        pet: state.pet.pet
+        pet: state.pet.pet,
+        error: state.pet.error
     }
 }
 

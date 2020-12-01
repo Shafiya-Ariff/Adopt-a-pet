@@ -1,27 +1,16 @@
 import Layout from './components/Layout/Layout';
-import React, { Fragment, useEffect } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import './App.css';
-import setAuthToken from './utils/setAuthToken';
-import { loadUser } from './store/actions';
-import store from './index';
 import Navigation from './components/Navigation/Navigation';
 import Dashboard from './components/Dashboard/Dashboard';
 import Admin from './components/Admin/Admin';
 import AddPet from './components/AppPet/AddPet';
 import ShowPet from './components/ShowPet/ShowPet';
-
-// if (localStorage.token) {
-//   setAuthToken(localStorage.token);
-// }
-
-console.log(localStorage.token);
+import EditPet from './components/EditPet/EditPet';
 
 const App = () => {
-  // useEffect(() => {
-  //   store.dispatch(loadUser());
-  // });
   return (
     <div>
       <Navigation />
@@ -36,6 +25,7 @@ const App = () => {
         <Route path="/add-a-pet" exact component={AddPet} />
         <Route path="/admin" exact component={Admin} />
         <Route path="/show/:id" component={ShowPet} />
+        <Route path="/edit/:id" exact component={EditPet} />
       </Switch>
     </div>
   );

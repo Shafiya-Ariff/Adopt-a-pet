@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import './Admin.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Card, Button, Container, Row, Col } from 'react-bootstrap';
 
 import Unauthorized from '../Unauthourized/Unauthorized';
@@ -14,7 +14,14 @@ export const Admin = (props) => {
         props.getPets();
     }, []);
 
-    console.log(props.pets);
+    const deleteHandler = (id) => {
+        console.log('delete');
+        props.deletePet(id);
+    }
+
+    if(props.deleted){
+        window.location.reload(true);
+    }
 
     const user = props.user || {};
     if (user.role === 'ROLE_ADMIN') {
@@ -38,8 +45,8 @@ export const Admin = (props) => {
                                                 </Card.Text>
                                                 <div>
                                                     <Link to={"/show/" + pet._id} className="mr-2 btn btn-primary btn-sm">Show</Link>
-                                                    <Button className="mr-2" variant="success" size="sm">Edit</Button>
-                                                    <Button variant="danger" size="sm">Delete</Button>
+                                                    <Link to={"/edit/" + pet._id} className="mr-2 btn btn-success btn-sm">Edit</Link>
+                                                    <Button variant="danger" onClick={() => deleteHandler(pet._id)} size="sm">Delete</Button>
                                                 </div>
                                             </Card.Body>
                                         </Card>
@@ -65,7 +72,8 @@ export const Admin = (props) => {
 const mapStateToProps = state => {
     return {
         user: state.auth.user,
-        pets: state.pet.pets
+        pets: state.pet.pets,
+        deleted: state.pet.deleted
     }
 }
 
@@ -73,6 +81,7 @@ const mapDispatchToProps = dispatch => {
     return {
         getUser: () => dispatch(actions.loadUser()),
         getPets: () => dispatch(actions.getPets()),
+        deletePet: (id) => dispatch(actions.deletePet(id)),
     }
 }
 
