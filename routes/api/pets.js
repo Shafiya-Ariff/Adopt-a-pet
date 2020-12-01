@@ -199,4 +199,18 @@ router.delete('/:id',auth, async (req,res) => {
     }
 });
 
+//@route GET api/pets
+//Filter by type 
+//Access is private
+
+router.get('/filter/:type', auth, async (req, res) => {
+    try {
+        const pets = await Pet.find({"type": req.params.type}).sort({ date: -1 });
+        res.json(pets);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
 module.exports = router;

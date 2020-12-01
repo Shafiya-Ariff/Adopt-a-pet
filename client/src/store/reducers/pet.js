@@ -34,6 +34,18 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 error: action.error,
             }
+        case actionTypes.FILTER_PETS:
+            return {
+                ...state,
+                error: [],
+                message: null,
+                pets: action.pets
+            }
+        case actionTypes.FILTER_PETS_FAIL:
+            return {
+                ...state,
+                error: action.error,
+            }
         case actionTypes.GET_PET_BY_ID:
             return {
                 ...state,

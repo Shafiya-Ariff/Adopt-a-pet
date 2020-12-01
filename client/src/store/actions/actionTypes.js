@@ -26,3 +26,6 @@ export const EDIT_A_PET_FAIL = 'EDIT_A_PET_FAIL';
 
 export const DELETE_A_PET = 'DELETE_A_PET';
 export const DELETE_A_PET_FAIL = 'DELETE_A_PET_FAIL';
+
+export const FILTER_PETS = 'FILTER_PETS';
+export const FILTER_PETS_FAIL = 'FILTER_PETS_FAIL';

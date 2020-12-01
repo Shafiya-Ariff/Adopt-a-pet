@@ -179,3 +179,36 @@ export const deletePet = (id) => {
             });
     }
 }
+
+export const filterPetsSuccess = (pets) => {
+    return {
+        type: actionTypes.FILTER_PETS,
+        pets: pets
+    }
+}
+
+export const filterPetsFail = (error) => {
+    return {
+        type: actionTypes.FILTER_PETS_FAIL,
+        error: error
+    }
+}
+
+export const filterPets = (type) => {
+    return dispatch => {
+        const config = {
+            headers: {
+                'x-auth-token': localStorage.token
+            }
+        }
+
+        axios.get('/api/pets/filter/'+type, config)
+            .then(res => {
+                dispatch(filterPetsSuccess(res.data));
+            })
+            .catch(err => {
+                console.log(err.response.data);
+                dispatch(filterPetsFail(err.response.data.errors));
+            });
+    }
+}
