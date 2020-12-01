@@ -14,3 +14,9 @@ export const GET_USER_DETAILS_FAIL = 'GET_USER_DETAILS_FAIL';
 
 export const ADD_A_PET = 'ADD_A_PET';
 export const ADD_A_PET_FAIL = 'ADD_A_PET_FAIL';
+
+export const GET_PETS = 'GET_PETS';
+export const GET_PETS_FAIL = 'GET_PETS_FAIL';
+
+export const GET_PET_BY_ID = 'GET_PET_BY_ID';
+export const GET_PET_BY_ID_FAIL = 'GET_PET_BY_ID_FAIL';

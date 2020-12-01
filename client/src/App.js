@@ -10,6 +10,7 @@ import Navigation from './components/Navigation/Navigation';
 import Dashboard from './components/Dashboard/Dashboard';
 import Admin from './components/Admin/Admin';
 import AddPet from './components/AppPet/AddPet';
+import ShowPet from './components/ShowPet/ShowPet';
 
 // if (localStorage.token) {
 //   setAuthToken(localStorage.token);
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/dashboard" exact component={Dashboard} />
         <Route path="/add-a-pet" exact component={AddPet} />
         <Route path="/admin" exact component={Admin} />
+        <Route path="/show/:id" component={ShowPet} />
       </Switch>
     </div>
   );

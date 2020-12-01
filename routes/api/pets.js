@@ -33,7 +33,7 @@ var upload = multer({
 });
 
 //@route POST api/pet
-//Add a pet
+//Add or edit a pet 
 //Access is private
 router.post('/upload-a-pet', upload.single('image'), [
     auth, [
@@ -75,7 +75,21 @@ router.post('/upload-a-pet', upload.single('image'), [
             if (req.file === undefined) {
                 return res.status(400).json({ errors: 'Please upload an image' });
             }
-            
+
+            let checkPet = await Pet.findOne({ user: req.user.id });
+
+            if (profile) {
+                //Update
+                profile = await Profile.findOneAndUpdate(
+                    { user: req.user.id },
+                    { $set: profileFields },
+                    { new: true }
+                );
+
+                return res.json(profile);
+            }
+
+
             const newPet = new Pet({
                 name: req.body.name,
                 type: req.body.type,
@@ -95,5 +109,42 @@ router.post('/upload-a-pet', upload.single('image'), [
         }
 
     });
+
+//@route GET api/pets
+//Add a pet
+//Access is private
+
+router.get('/all', auth, async (req, res) => {
+    try {
+        const pets = await Pet.find().sort({ date: -1 });
+        res.json(pets);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+//@route GET api/pets/:id
+//Get post by id
+//Access is private
+router.get('/:id', auth, async (req, res) => {
+    try {
+        const pet = await Pet.findById(req.params.id);
+
+        if (!pet) {
+            return res.status(404).json({ msg: "Pet not found" });
+        }
+
+        res.json(pet);
+    } catch (err) {
+        console.error(err.message);
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ msg: "Pet not found" });
+        }
+        res.status(500).send('Server Error');
+    }
+});
+
+
 
 module.exports = router;

@@ -40,3 +40,71 @@ export const addAPet = (name, type, breed, age, location, image) => {
             });
     }
 }
+
+export const getPetsSuccess = (pets) => {
+    return {
+        type: actionTypes.GET_PETS,
+        pets: pets
+    }
+}
+
+export const getPetsFail = (error) => {
+    return {
+        type: actionTypes.GET_PETS_FAIL,
+        error: error
+    }
+}
+
+export const getPets = () => {
+    return dispatch => {
+        const config = {
+            headers: {
+                'x-auth-token': localStorage.token
+            }
+        }
+
+        axios.get('/api/pets/all', config)
+            .then(res => {
+                dispatch(getPetsSuccess(res.data));
+            })
+            .catch(err => {
+                console.log(err.response.data);
+                dispatch(addAPetFail(err.response.data.errors));
+            });
+    }
+}
+
+export const getPetByIdSuccess = (pet) => {
+    return {
+        type: actionTypes.GET_PET_BY_ID,
+        pet: pet
+    }
+}
+
+export const getPetByIdFail = (error) => {
+    return {
+        type: actionTypes.GET_PET_BY_ID_FAIL,
+        error: error
+    }
+}
+
+export const getPetById = (id) => {
+    return dispatch => {
+        const config = {
+            headers: {
+                'x-auth-token': localStorage.token
+            }
+        }
+
+        console.log('hey');
+
+        axios.get('/api/pets/'+id, config)
+            .then(res => {
+                dispatch(getPetByIdSuccess(res.data));
+            })
+            .catch(err => {
+                console.log(err.response.data);
+                dispatch(getPetByIdFail(err.response.data.errors));
+            });
+    }
+}

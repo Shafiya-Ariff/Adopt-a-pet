@@ -32,12 +32,6 @@ export const Layout = (props) => {
         changeStates();
     }
 
-    // useEffect(() => {
-    //     if(props.isAuthenticated){
-    //         return <Redirect to='/dashboard' />;
-    //     }
-    // }, [props.isAuthenticated])
-
     // Redirect if logged in
     if (props.isAuthenticated) {
         console.log('to dashboard');
