@@ -11,9 +11,11 @@ export const ShowPet = (props) => {
         props.getPet(props.match.params.id);
     }, []);
 
-    console.log(props.error);
-
     const pet = props.pet || {};
+
+    const wishlistHandler = (id) => {
+        props.addToWishlist(id);
+    }
 
     if (props.error === 'Pet not found') {
         return (
@@ -27,6 +29,10 @@ export const ShowPet = (props) => {
 
     return (
         <div style={{ backgroundColor: "#f0f0f0", height: "100%", minHeight: "100vh" }}>
+            {props.success &&
+                    <div className="success">{props.message}</div>}
+                {props.wishlistError &&
+                    <div className="errorMessageBox">{props.wishlistError}</div>}
             <div className="container">
                 <div className="details">
                     <Row>
@@ -40,7 +46,7 @@ export const ShowPet = (props) => {
                             <p><strong>Age: </strong>{pet.age}</p>
                             <p><strong>Location: </strong>{pet.location}</p>
                             <div style={{ padding: "20px" }}>
-                                <Button className="mr-2" variant="success" size="md">Add to wishlist</Button>
+                            <Button onClick={() => wishlistHandler(pet._id)} variant="success" className="mr-2" size="md">Add to wishlist</Button>
                             </div>
                         </Col>
                     </Row>
@@ -54,13 +60,17 @@ const mapStateToProps = state => {
     return {
         user: state.auth.user,
         pet: state.pet.pet,
-        error: state.pet.error
+        error: state.pet.error,
+        message: state.wishlist.message,
+        success: state.wishlist.success,
+        wishlistError: state.wishlist.error
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         getPet: (id) => dispatch(actions.getPetById(id)),
+        addToWishlist: (id) => dispatch(actions.addToWishlist(id)),
     }
 }
 

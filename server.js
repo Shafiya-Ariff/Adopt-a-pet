@@ -23,6 +23,7 @@ app.get('/',(req,res) => res.send('API Running'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/pets', require('./routes/api/pets'));
+app.use('/api/wishlist', require('./routes/api/wishlist'));
 
 const PORT = process.env.PORT || 1000;
 

@@ -29,8 +29,8 @@ export const Navigation = (props) => {
                     <Nav className="ml-auto">
                         {localStorage.token &&
                             <Fragment>
-                                <Nav.Link href="/register" style={{ fontWeight: "bold" }}>Adopt</Nav.Link>
-                                <Nav.Link href="/login" style={{ fontWeight: "bold" }}>Wishlist</Nav.Link>
+                                <Nav.Link href="/dashboard" style={{ fontWeight: "bold" }}>Adopt</Nav.Link>
+                                <Nav.Link href="/wishlist" style={{ fontWeight: "bold" }}>Wishlist</Nav.Link>
                                 <Nav.Link href="/login" style={{ fontWeight: "bold" }}>Donate</Nav.Link>
                                 <Button variant="light" onClick={logout} style={{ fontWeight: "bold" }}>Logout</Button>
                             </Fragment>

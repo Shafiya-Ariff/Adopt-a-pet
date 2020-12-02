@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 // import './Admin.css';
 import { Link } from 'react-router-dom';
-import { Card, Container, Row, Col, Form } from 'react-bootstrap';
+import { Card, Container, Row, Col, Form, Button } from 'react-bootstrap';
 
 export const Dashboard = (props) => {
 
@@ -20,26 +20,34 @@ export const Dashboard = (props) => {
 
     const onChange = (e) => {
         setType({ ...typeData, [e.target.name]: e.target.value });
-        if(e.target.value === 'Both'){
+        if (e.target.value === 'Both') {
             props.getPets();
-        }else{
+        } else {
             props.filterPets(e.target.value);
         }
+    }
+
+    const wishlistHandler = (id) => {
+        props.addToWishlist(id);
     }
 
     return (
         <div style={{ backgroundColor: "#f0f0f0", height: "100%", minHeight: "100vh" }}>
             <div className="">
-                <div className="container" style={{width:"40%", paddingTop:"20px"}}>
-                <Form>
-                    <Form.Group controlId="exampleForm.ControlSelect1">
-                        <Form.Control as="select" onChange={e => onChange(e)} value={typeData.type} name="type">
-                            <option value="Both">Both Dogs and Cats</option>
-                            <option value="Dog">Dogs</option>
-                            <option value="Cat">Cats</option>
-                        </Form.Control>
-                    </Form.Group>
-                </Form>
+                {props.success &&
+                    <div className="success">{props.message}</div>}
+                {props.error &&
+                    <div className="errorMessageBox">{props.error}</div>}
+                <div className="container" style={{ width: "40%", paddingTop: "20px" }}>
+                    <Form>
+                        <Form.Group controlId="exampleForm.ControlSelect1">
+                            <Form.Control as="select" onChange={e => onChange(e)} value={typeData.type} name="type">
+                                <option value="Both">Both Dogs and Cats</option>
+                                <option value="Dog">Dogs</option>
+                                <option value="Cat">Cats</option>
+                            </Form.Control>
+                        </Form.Group>
+                    </Form>
                 </div>
                 {props.pets.length > 0 ?
                     <Container fluid className="cardLayout">
@@ -55,7 +63,7 @@ export const Dashboard = (props) => {
                                             </Card.Text>
                                             <div>
                                                 <Link to={"/show/" + pet._id} className="mr-2 btn btn-primary btn-sm">Show</Link>
-                                                <Link className="mr-2 btn btn-success btn-sm">Add to wishlist</Link>
+                                                <Button onClick={() => wishlistHandler(pet._id)} variant="success" className="mr-2" size="sm">Add to wishlist</Button>
                                             </div>
                                         </Card.Body>
                                     </Card>
@@ -65,7 +73,7 @@ export const Dashboard = (props) => {
                     </Container> :
                     <div className="errorMessageBox container">
                         No Pets available to adopt. Please check again later.
-                        </div>
+                    </div>
                 }
             </div>
         </div>
@@ -76,7 +84,10 @@ export const Dashboard = (props) => {
 const mapStateToProps = state => {
     return {
         user: state.auth.user,
-        pets: state.pet.pets
+        pets: state.pet.pets,
+        message: state.wishlist.message,
+        success: state.wishlist.success,
+        error: state.wishlist.error
     }
 }
 
@@ -85,6 +96,7 @@ const mapDispatchToProps = dispatch => {
         getUser: () => dispatch(actions.loadUser()),
         getPets: () => dispatch(actions.getPets()),
         filterPets: (type) => dispatch(actions.filterPets(type)),
+        addToWishlist: (id) => dispatch(actions.addToWishlist(id)),
     }
 }
 

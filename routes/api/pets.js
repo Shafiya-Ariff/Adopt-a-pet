@@ -184,12 +184,12 @@ router.get('/:id', auth, async (req, res) => {
 //@route DELETE api/pets/:id
 // Delete profile, user & posts
 // Access is private
-router.delete('/:id',auth, async (req,res) => {
+router.delete('/:id', auth, async (req, res) => {
     try {
         //Remove pet
-        await Pet.findOneAndRemove({_id: req.params.id});
+        await Pet.findOneAndRemove({ _id: req.params.id });
 
-        res.json({msg: "Pet deleted"});
+        res.json({ msg: "Pet deleted" });
     } catch (err) {
         console.error(err.message);
         if (err.kind === 'ObjectId') {
@@ -205,7 +205,7 @@ router.delete('/:id',auth, async (req,res) => {
 
 router.get('/filter/:type', auth, async (req, res) => {
     try {
-        const pets = await Pet.find({"type": req.params.type}).sort({ date: -1 });
+        const pets = await Pet.find({ "type": req.params.type }).sort({ date: -1 });
         res.json(pets);
     } catch (err) {
         console.error(err.message);
