@@ -11,8 +11,18 @@ export const Wishlist = (props) => {
     }, []);
 
     const pets = props.pets || {};
-    // console.log(pet);
-    pets.map(pet => console.log(pet.pet._id));
+
+    const adoptHandler = (id) => {
+        props.adopt(id);
+    }
+
+    const removeHandler = (id) => {
+        props.removePetFromWishlist(id);
+    }
+
+    if(props.removed){
+        window.location.reload(true);
+    }
 
     return (
         <div>
@@ -20,6 +30,10 @@ export const Wishlist = (props) => {
             <div className="">
                 {props.error &&
                     <div className="errorMessageBox">{props.error}</div>}
+                    {props.success &&
+                    <div className="success">{props.message}</div>}
+                    {props.adoptError &&
+                    <div className="errorMessageBox">{props.adoptError}</div>}
                 <div className="container" style={{ width: "40%", paddingTop: "20px" }}>
                 </div>
                 {props.pets.length > 0 ?
@@ -35,7 +49,8 @@ export const Wishlist = (props) => {
                                                 {pet.pet.type}
                                             </Card.Text>
                                             <div>
-                                                <Button variant="success" className="mr-2" size="sm">Adopt</Button>
+                                                <Button onClick={() => adoptHandler(pet.pet._id)} variant="success" className="mr-2" size="sm">Adopt</Button>
+                                                <Button onClick={() => removeHandler(pet._id)} variant="danger" className="mr-2" size="sm">Remove</Button>
                                             </div>
                                         </Card.Body>
                                     </Card>
@@ -57,13 +72,19 @@ const mapStateToProps = state => {
     return {
         user: state.auth.user,
         pets: state.wishlist.pets,
-        error: state.wishlist.error
+        error: state.wishlist.error,
+        adoptError: state.adopt.error,
+        success: state.adopt.success,
+        message: state.adopt.message,
+        removed: state.wishlist.removed
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         getWishlist: () => dispatch(actions.getWishlist()),
+        adopt: (id) => dispatch(actions.adopt(id)),
+        removePetFromWishlist: (id) => dispatch(actions.removePetFromWishlist(id)),
     }
 }
 

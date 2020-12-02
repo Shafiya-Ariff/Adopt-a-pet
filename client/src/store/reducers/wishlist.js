@@ -4,6 +4,7 @@ const initialState = {
     error: null,
     message: null,
     success: false,
+    removed: false,
     pets: []
 }
 
@@ -35,6 +36,18 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 error: action.error,
                 message: 'Unable to retrieve wishlist'
+            }
+        case actionTypes.REMOVE_PET_FROM_WISHLIST:
+            return {
+                ...state,
+                error: null,
+                removed: true,
+            }
+        case actionTypes.REMOVE_PET_FROM_WISHLIST_FAIL:
+            return {
+                ...state,
+                error: action.error,
+                removed: false
             }
         default:
             return state;

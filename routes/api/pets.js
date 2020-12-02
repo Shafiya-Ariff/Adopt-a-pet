@@ -182,7 +182,7 @@ router.get('/:id', auth, async (req, res) => {
 });
 
 //@route DELETE api/pets/:id
-// Delete profile, user & posts
+// Delete pet
 // Access is private
 router.delete('/:id', auth, async (req, res) => {
     try {

@@ -3,8 +3,6 @@ const { check, validationResult } = require('express-validator');
 
 const router = express.Router();
 const auth = require('../../middleware/auth');
-const User = require('../../models/User');
-const Pet = require('../../models/Pet');
 const Wishlist = require('../../models/Wishlist');
 
 //@route POST api/wishlist
@@ -42,6 +40,24 @@ router.get('/', auth, async (req, res) => {
         res.json(wishlist);
     } catch (err) {
         console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+//@route DELETE api/wishlist/:id
+// Remove a pet from wishlist
+// Access is private
+router.delete('/:id', auth, async (req, res) => {
+    try {
+        //Remove pet
+        await Wishlist.findOneAndRemove({ _id: req.params.id });
+
+        res.json({ msg: "Pet deleted from wishlist" });
+    } catch (err) {
+        console.error(err.message);
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ msg: "Pet not found" });
+        }
         res.status(500).send('Server Error');
     }
 });

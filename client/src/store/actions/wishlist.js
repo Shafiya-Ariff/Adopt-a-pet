@@ -66,3 +66,37 @@ export const getWishlist = () => {
             });
     }
 }
+
+export const removePetFromWishlistSuccess = (pet) => {
+    return {
+        type: actionTypes.REMOVE_PET_FROM_WISHLIST,
+        pet: pet
+    }
+}
+
+export const removePetFromWishlistFail = (error) => {
+    return {
+        type: actionTypes.REMOVE_PET_FROM_WISHLIST_FAIL,
+        error: error
+    }
+}
+
+export const removePetFromWishlist = (id) => {
+    return dispatch => {
+        const config = {
+            headers: {
+                'x-auth-token': localStorage.token
+            }
+        }
+
+        axios.delete('/api/wishlist/'+id, config)
+            .then(res => {
+                console.log(id)
+                dispatch(removePetFromWishlistSuccess(res.data));
+            })
+            .catch(err => {
+                console.log(err.response.data);
+                dispatch(removePetFromWishlistFail(err.response.data.errors));
+            });
+    }
+}
