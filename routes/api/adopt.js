@@ -58,13 +58,13 @@ router.post('/:petId', auth, async (req, res) => {
     }
 });
 
-//@route GET api/wishlist
-// Get wishlist collection by user id
+//@route GET api/adopt
+// Get all adoptions
 // Access is private
 router.get('/', auth, async (req, res) => {
     try {
-        const wishlist = await Wishlist.find({ user: req.user.id }).populate('pet');
-        res.json(wishlist);
+        const adopt = await Adopt.find().populate('user').populate('pet').sort({ date: -1 });
+        res.json(adopt);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');

@@ -30,3 +30,36 @@ export const adopt = (id) => {
             });
     }
 };
+
+export const getAdoptionsSuccess = (pets) => {
+    return {
+        type: actionTypes.GET_ADOPTIONS,
+        pets: pets
+    }
+}
+
+export const getAdoptionsFail = (error) => {
+    return {
+        type: actionTypes.GET_ADOPTIONS_FAIL,
+        error: error
+    }
+}
+
+export const getAdoptions = () => {
+    return dispatch => {
+        const config = {
+            headers: {
+                'x-auth-token': localStorage.token
+            }
+        }
+
+        axios.get('/api/adopt', config)
+            .then(res => {
+                dispatch(getAdoptionsSuccess(res.data));
+            })
+            .catch(err => {
+                console.log(err.response.data);
+                dispatch(getAdoptionsFail(err.response.data.errors));
+            });
+    }
+}

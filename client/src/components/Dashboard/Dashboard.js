@@ -53,8 +53,8 @@ export const Dashboard = (props) => {
                     <Container fluid className="cardLayout">
                         <Row>
                             {props.pets.map(pet => (
-                                <Col style={{ boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" }} sm={6} md={6} xl={4} lg={4}>
-                                    <Card style={{ width: '18rem', margin: "20px" }}>
+                                <Col sm={6} md={6} xl={4} lg={4}>
+                                    <Card style={{ boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)", width: '18rem', margin: "20px" }}>
                                         <Card.Img variant="top" src={pet.image} />
                                         <Card.Body className="text-center">
                                             <Card.Title>{pet.name}</Card.Title>

@@ -3,4 +3,4 @@ export {login, loginClear} from './login';
 export {loadUser, logout} from './auth';
 export {addAPet,editAPet,deletePet, getPets, getPetById, filterPets} from './pet';
 export {addToWishlist, getWishlist, removePetFromWishlist} from './wishlist';
-export {adopt} from './adopt';
+export {adopt, getAdoptions} from './adopt';

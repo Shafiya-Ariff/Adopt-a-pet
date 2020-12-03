@@ -10,6 +10,7 @@ import AddPet from './components/AppPet/AddPet';
 import ShowPet from './components/ShowPet/ShowPet';
 import EditPet from './components/EditPet/EditPet';
 import Wishlist from './components/Wishlist/Wishlist';
+import Adopt from './components/Adopt/Adopt';
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/show/:id" component={ShowPet} />
         <Route path="/edit/:id" exact component={EditPet} />
         <Route path="/wishlist" exact component={Wishlist} />
+        <Route path="/adoptions" exact component={Adopt} />
       </Switch>
     </div>
   );
