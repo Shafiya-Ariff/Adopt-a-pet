@@ -41,10 +41,11 @@ export const addAPet = (name, type, breed, age, location, image) => {
     }
 }
 
-export const getPetsSuccess = (pets) => {
+export const getPetsSuccess = (pets, page) => {
     return {
         type: actionTypes.GET_PETS,
-        pets: pets
+        pets: pets,
+        page: page
     }
 }
 
@@ -55,7 +56,7 @@ export const getPetsFail = (error) => {
     }
 }
 
-export const getPets = () => {
+export const getPets = (page) => {
     return dispatch => {
         const config = {
             headers: {
@@ -63,9 +64,9 @@ export const getPets = () => {
             }
         }
 
-        axios.get('/api/pets/all', config)
+        axios.get('/api/pets/all?page='+page, config)
             .then(res => {
-                dispatch(getPetsSuccess(res.data));
+                dispatch(getPetsSuccess(res.data, page));
             })
             .catch(err => {
                 console.log(err.response.data);
@@ -180,10 +181,12 @@ export const deletePet = (id) => {
     }
 }
 
-export const filterPetsSuccess = (pets) => {
+export const filterPetsSuccess = (pets, page) => {
+    console.log("Page is "+page);
     return {
         type: actionTypes.FILTER_PETS,
-        pets: pets
+        pets: pets,
+        page: page
     }
 }
 
@@ -194,7 +197,7 @@ export const filterPetsFail = (error) => {
     }
 }
 
-export const filterPets = (type) => {
+export const filterPets = (type, page) => {
     return dispatch => {
         const config = {
             headers: {
@@ -202,13 +205,19 @@ export const filterPets = (type) => {
             }
         }
 
-        axios.get('/api/pets/filter/'+type, config)
+        axios.get('/api/pets/filter/'+type+"?page="+page, config)
             .then(res => {
-                dispatch(filterPetsSuccess(res.data));
+                dispatch(filterPetsSuccess(res.data, page));
             })
             .catch(err => {
                 console.log(err.response.data);
                 dispatch(filterPetsFail(err.response.data.errors));
             });
     }
+}
+
+export const petClear = () => dispatch => {
+    dispatch({
+        type:actionTypes.CLEAR_PETS
+    })
 }

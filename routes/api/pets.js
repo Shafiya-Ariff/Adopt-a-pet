@@ -152,7 +152,9 @@ router.post('/upload-a-pet/:id', upload.single('image'), [
 
 router.get('/all', auth, async (req, res) => {
     try {
-        const pets = await Pet.find().sort({ date: -1 });
+        const page = req.query.page;
+        const pets = await Pet.find().skip((page - 1) * 6).limit(6).sort({ date: -1 });
+        // const pets = await Pet.find();
         res.json(pets);
     } catch (err) {
         console.error(err.message);
@@ -205,7 +207,11 @@ router.delete('/:id', auth, async (req, res) => {
 
 router.get('/filter/:type', auth, async (req, res) => {
     try {
-        const pets = await Pet.find({ "type": req.params.type }).sort({ date: -1 });
+        const page = req.query.page;
+        const pets = await Pet.find({ "type": req.params.type })
+                              .skip((page - 1) * 6)
+                              .limit(6)
+                              .sort({ date: -1 });
         res.json(pets);
     } catch (err) {
         console.error(err.message);

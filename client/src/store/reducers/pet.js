@@ -6,6 +6,8 @@ const initialState = {
     pets: [],
     pet: null,
     deleted: false,
+    page: 1,
+    filterPage: 1
 }
 
 const reducer = (state = initialState, action) => {
@@ -27,7 +29,8 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 error: [],
                 message: null,
-                pets: action.pets
+                pets: state.pets.concat(action.pets),
+                page: action.page + 1
             }
         case actionTypes.GET_PETS_FAIL:
             return {
@@ -39,12 +42,22 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 error: [],
                 message: null,
-                pets: action.pets
+                pets: state.pets.concat(action.pets),
+                filterPage: action.page + 1
             }
         case actionTypes.FILTER_PETS_FAIL:
             return {
                 ...state,
                 error: action.error,
+            }
+        case actionTypes.CLEAR_PETS:
+            return {
+                ...state,
+                error: [],
+                message: null,
+                pets: [],
+                page: 1,
+                filterPage: 1
             }
         case actionTypes.GET_PET_BY_ID:
             return {

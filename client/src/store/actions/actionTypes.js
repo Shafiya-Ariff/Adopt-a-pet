@@ -30,6 +30,8 @@ export const DELETE_A_PET_FAIL = 'DELETE_A_PET_FAIL';
 export const FILTER_PETS = 'FILTER_PETS';
 export const FILTER_PETS_FAIL = 'FILTER_PETS_FAIL';
 
+export const CLEAR_PETS = 'CLEAR_PETS';
+
 export const ADD_TO_WISHLIST = 'ADD_TO_WISHLIST';
 export const ADD_TO_WISHLIST_FAIL = 'ADD_TO_WISHLIST_FAIL';
 
